@@ -8,7 +8,7 @@
     @endif
     <div class="d-flex justify-content-between align-items-center py-4">
         <h1>Posts</h1>
-        <a href="{{route('admin.posts.create')}}" class="btn btn-primary">Crea nuovo post</a>
+        <a href="{{route('admin.posts.create')}}" class="btn btn-danger">Crea nuovo post</a>
     </div>
 
     <table class="table table-striped">
@@ -31,8 +31,8 @@
                 <td>{{$post->created_at}}</td>
                 <td>{{$post->updated_at}}</td>
                 <td>
-                    <a href="{{route('admin.posts.show', $post->slug)}}" title="Show"><i class="fa-solid fa-eye"></i></a>
-                    <a href="{{route('admin.posts.edit', $post->slug)}}" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                    <a href="{{route('admin.posts.show', $post->slug)}}" title="Show" class="text-black px-2"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{route('admin.posts.edit', $post->slug)}}" title="Edit" class="text-black px-2"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST" class="d-inline-block">
                       @csrf
                       @method('DELETE')

@@ -14,7 +14,10 @@ $fa-font-path: "../webfonts" !default;
    height: 100vh;
    overflow: hidden;
    display:flex;
-
+//    .btn.btn-primary{
+//     background-color: var(--bs-orange);
+//     border-color:var(--bs-orange);
+//    }
    #sidebar{
       background-color: $black;
       color: $white;

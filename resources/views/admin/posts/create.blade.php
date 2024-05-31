@@ -10,7 +10,7 @@
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
-                    value="{{ old('title') }}" minlength="3" maxlength="200">
+                    value="{{ old('title') }}" minlength="3" maxlength="200" required>
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -19,14 +19,14 @@
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="url" class="form-control @error('image') is-invalid @enderror" id="image"
-                    name="image" value="{{ old('image') }}">
+                    name="image" value="{{ old('image') }}" maxlength="255">
                 @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
-                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content">
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" required>
                 {{ old('content') }}
               </textarea>
                 @error('content')
@@ -34,8 +34,8 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <button type="submit">Crea</button>
-                <button type="reset">Svuota campi</button>
+                <button type="submit" class="btn btn-danger">Crea</button>
+                <button type="reset" class="btn btn-secondary">Svuota campi</button>
 
             </div>
         </form>
