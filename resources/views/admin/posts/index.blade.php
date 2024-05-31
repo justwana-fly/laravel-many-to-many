@@ -8,7 +8,7 @@
     @endif
     <div class="d-flex justify-content-between align-items-center py-4">
         <h1>Posts</h1>
-        <a href="{{route('admin.posts.create')}}" class="btn btn-danger">Crea nuovo post</a>
+        <a href="{{route('admin.posts.create')}}" class="btn btn-danger">Create new post</a>
     </div>
 
     <table class="table table-striped">

@@ -34,8 +34,8 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-danger">Crea</button>
-                <button type="reset" class="btn btn-secondary">Svuota campi</button>
+                <button type="submit" class="btn btn-danger">Create</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
 
             </div>
         </form>

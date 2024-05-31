@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between align-items-center py-4">
         <h1>{{$post->title}}</h1>
         <div>
-            <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-secondary">Modifica</a>
+            <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-secondary">Edit</a>
             <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST" class="d-inline-block">
                 @csrf
                 @method('DELETE')
