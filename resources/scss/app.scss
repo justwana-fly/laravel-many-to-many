@@ -8,3 +8,29 @@ $fa-font-path: "../webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "~bootstrap/scss/bootstrap.scss";
+
+
+#admin{
+   height: 100vh;
+   overflow: hidden;
+   display:flex;
+
+   #sidebar{
+      background-color: $black;
+      color: $white;
+   }
+
+   #wrapper{
+        flex-grow: 1;
+
+
+        header{
+            min-height:70px;
+
+            .img-profile {
+                height:2rem;
+                width:2rem;
+            }
+        }
+    }
+}

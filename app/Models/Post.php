@@ -9,10 +9,16 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'slug'];
+    protected $fillable = ['title', 'image', 'content', 'slug'];
 
     public static function generateSlug($title)
     {
-        return Str::slug($title, '-');
+        $slug = Str::slug($title, '-');
+        $count = 1;
+        while (Post::where('slug', $slug)->first()) {
+            $slug = Str::of($title)->slug('-') . "-{$count}";
+            $count++;
+        }
+        return $slug;
     }
 }
