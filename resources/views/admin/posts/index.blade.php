@@ -33,10 +33,10 @@
                 <td>
                     <a href="{{route('admin.posts.show', $post->slug)}}"><i class="fa-solid fa-eye"></i></a>
                     <a href="{{route('admin.posts.edit', $post->slug)}}"><i class="fa-solid fa-pen"></i></a>
-                    <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST">
+                    <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST" class="d-inline-block">
                       @csrf
                       @method('DELETE')
-                      <button type="submit">
+                      <button type="submit" class="delete-button border-0 bg-transparent"  data-item-title="{{ $post->title }}">
                         <i class="fa-solid fa-trash"></i>
                       </button>
 
@@ -51,6 +51,7 @@
           </tbody>
       </table>
 </section>
+@include('partials.modal-delete')
 @endsection
 
 
