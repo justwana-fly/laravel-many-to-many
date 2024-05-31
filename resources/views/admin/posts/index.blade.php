@@ -31,8 +31,8 @@
                 <td>{{$post->created_at}}</td>
                 <td>{{$post->updated_at}}</td>
                 <td>
-                    <a href="{{route('admin.posts.show', $post->slug)}}"><i class="fa-solid fa-eye"></i></a>
-                    <a href="{{route('admin.posts.edit', $post->slug)}}"><i class="fa-solid fa-pen"></i></a>
+                    <a href="{{route('admin.posts.show', $post->slug)}}" title="Show"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{route('admin.posts.edit', $post->slug)}}" title="Edit"><i class="fa-solid fa-pen"></i></a>
                     <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST" class="d-inline-block">
                       @csrf
                       @method('DELETE')
