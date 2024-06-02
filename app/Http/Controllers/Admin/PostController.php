@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
+//use Illuminate\Support\Facades\DB;
 
 
 class PostController extends Controller
@@ -69,7 +70,10 @@ class PostController extends Controller
         if ($post->title !== $form_data['title']) {
             $form_data['slug'] = Post::generateSlug($form_data['title']);
         }
+        // DB::enableQueryLog();
         $post->update($form_data);
+        //$query = DB::getQueryLog();
+        // dd($query);
         return redirect()->route('admin.posts.show', $post->slug);
     }
 
