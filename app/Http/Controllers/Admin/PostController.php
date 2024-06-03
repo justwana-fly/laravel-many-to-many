@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
-//use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 
 class PostController extends Controller
@@ -19,7 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        //$posts = Post::all();
+        $posts = Post::paginate(3);
         //dd($posts);
         return view('admin.posts.index', compact('posts'));
     }
@@ -72,7 +73,7 @@ class PostController extends Controller
         }
         // DB::enableQueryLog();
         $post->update($form_data);
-        //$query = DB::getQueryLog();
+        // $query = DB::getQueryLog();
         // dd($query);
         return redirect()->route('admin.posts.show', $post->slug);
     }

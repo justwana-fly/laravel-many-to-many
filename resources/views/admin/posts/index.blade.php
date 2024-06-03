@@ -36,7 +36,7 @@
                     <form action="{{route('admin.posts.destroy', $post->slug)}}" method="POST" class="d-inline-block">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="delete-button border-0 bg-transparent"  data-item-title="{{ $post->title }}">
+                      <button type="submit" class="delete-button border-0 bg-transparent"  data-item-title="{{ $post->title }}" data-item-id = "{{ $post->id }}">
                         <i class="fa-solid fa-trash"></i>
                       </button>
 
@@ -51,6 +51,7 @@
           </tbody>
       </table>
 </section>
+{{ $posts->links('vendor.pagination.bootstrap-5') }}
 @include('partials.modal-delete')
 @endsection
 
