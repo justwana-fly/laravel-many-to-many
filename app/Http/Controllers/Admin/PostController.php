@@ -10,6 +10,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
 // use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -40,6 +41,19 @@ class PostController extends Controller
     {
         $form_data = $request->validated();
         $form_data['slug'] = Post::generateSlug($form_data['title']);
+        if ($request->hasFile('image')) {
+            //dd($request->image);
+            // $path = $request->file('image')->storeAs(
+            //     'post_images',
+            //     'colors.png'
+            // );
+            $path = Storage::put('post_images', $request->image);
+            $form_data['image'] = $path;
+        }
+        //dd($path);// post_images/nomefile.png
+
+
+
         $newPost = Post::create($form_data);
         return redirect()->route('admin.posts.show', $newPost->slug);
 
@@ -71,6 +85,15 @@ class PostController extends Controller
         if ($post->title !== $form_data['title']) {
             $form_data['slug'] = Post::generateSlug($form_data['title']);
         }
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+            $name = $request->image->getClientOriginalName();
+            //dd($name);
+            $path = Storage::putFileAs('post_images', $request->image, $name);
+            $form_data['image'] = $path;
+        }
         // DB::enableQueryLog();
         $post->update($form_data);
         // $query = DB::getQueryLog();
@@ -83,6 +106,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         $post->delete();
         return redirect()->route('admin.posts.index')->with('message', $post->title . ' è stato eliminato');
     }

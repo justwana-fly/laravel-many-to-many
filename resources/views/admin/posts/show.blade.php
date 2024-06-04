@@ -21,7 +21,7 @@
 
 
     <p>{{$post->content}}</p>
-    <img src="{{$post->image}}" alt="{{$post->title}}">
+    <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}">
 </section>
 @include('partials.modal-delete')
 @endsection
