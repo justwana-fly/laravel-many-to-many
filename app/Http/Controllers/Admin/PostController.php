@@ -43,11 +43,15 @@ class PostController extends Controller
         $form_data['slug'] = Post::generateSlug($form_data['title']);
         if ($request->hasFile('image')) {
             //dd($request->image);
+            $name = $request->image->getClientOriginalName(); //o il nome che volete dare al file
             // $path = $request->file('image')->storeAs(
             //     'post_images',
-            //     'colors.png'
+            //      $name
             // );
-            $path = Storage::put('post_images', $request->image);
+
+            //dd($name);
+            $path = Storage::putFileAs('post_images', $request->image, $name);
+            //$path = Storage::put('post_images', $request->image);
             $form_data['image'] = $path;
         }
         //dd($path);// post_images/nomefile.png
