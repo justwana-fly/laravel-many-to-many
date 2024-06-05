@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Post;
+
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -21,7 +23,8 @@ class PostController extends Controller
     public function index()
     {
         //$posts = Post::all();
-        $posts = Post::paginate(3);
+        $id = Auth::id();
+        $posts = Post::where('user_id', $id)->paginate(3);
         //dd($posts);
         return view('admin.posts.index', compact('posts'));
     }
@@ -31,7 +34,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -41,6 +45,7 @@ class PostController extends Controller
     {
         $form_data = $request->validated();
         $form_data['slug'] = Post::generateSlug($form_data['title']);
+        $form_data['user_id'] = Auth::id();
         if ($request->hasFile('image')) {
             //dd($request->image);
             $name = $request->image->getClientOriginalName(); //o il nome che volete dare al file
@@ -77,7 +82,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**

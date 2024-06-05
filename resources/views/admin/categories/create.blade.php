@@ -35,19 +35,6 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="category_id" class="form-label">Select Category</label>
-                <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                    <option value="">Select Category</option>
-                  @foreach ($categories as $category)
-                      <option value="{{$category->id}}" {{ $category->id == old('category_id') ? 'selected' : '' }}>{{$category->name}}</option>
-                  @endforeach
-                </select>
-                @error('category_id')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-            <div class="mb-3">
                 <button type="submit" class="btn btn-danger">Create</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>
 
