@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //dd($category->posts);
+        //dd($category);
         return view('admin.categories.show', compact('category'));
     }
 
