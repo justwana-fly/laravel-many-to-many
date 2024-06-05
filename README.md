@@ -209,14 +209,15 @@ php artisan storage:link
 
 #salvare
 Storage::put('nomecartella', $data['image']); //ritorna il path
+#or
+$path = Storage::putFileAs(
+    'avatars', $request->file('avatar'), $name
+);
 
 #per visualizzare 
 <img src="{{ asset('storage/' . $post->cover_image) }}">
 ....
 
-Route::fallback(function() {
-    return redirect()->route('admin.dashboard');
-});
 
 ```
 ## Relazioni
@@ -241,7 +242,15 @@ $table->dropForeign('posts_user_id_foreign');
 $table->dropColumn('user_id');
 
 #nei model
+#editare i model con relazioni e fillable o guarded
+#use Illuminate\Database\Eloquent\Relations\HasMany;
 
+protected $guarded = [];
+
+public function products():HasMany
+{
+   return $this->hasMany(Product::class);
+}
 
 
 ```

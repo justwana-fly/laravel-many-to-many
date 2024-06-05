@@ -11,6 +11,7 @@ class Post extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'image', 'content', 'slug', 'user_id', 'category_id'];
+    //protected $guarded = [];
 
     public static function generateSlug($title)
     {

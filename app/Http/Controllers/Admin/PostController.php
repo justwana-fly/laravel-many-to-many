@@ -92,6 +92,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $form_data = $request->all();
+        $form_data['user_id'] = Auth::id();
         if ($post->title !== $form_data['title']) {
             $form_data['slug'] = Post::generateSlug($form_data['title']);
         }
