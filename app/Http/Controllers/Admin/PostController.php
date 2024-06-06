@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Post;
+use App\Models\Tag;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -60,10 +62,11 @@ class PostController extends Controller
             $form_data['image'] = $path;
         }
         //dd($path);// post_images/nomefile.png
-
-
-
         $newPost = Post::create($form_data);
+        if ($request->has('tags')) {
+            $newPost->tags()->attach($request->tags);
+        }
+
         return redirect()->route('admin.posts.show', $newPost->slug);
 
     }
@@ -83,7 +86,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -107,6 +111,11 @@ class PostController extends Controller
         }
         // DB::enableQueryLog();
         $post->update($form_data);
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->sync([]);
+        }
         // $query = DB::getQueryLog();
         // dd($query);
         return redirect()->route('admin.posts.show', $post->slug);
@@ -120,6 +129,7 @@ class PostController extends Controller
         if ($post->image) {
             Storage::delete($post->image);
         }
+        // $post->tags()->detach();
         $post->delete();
         return redirect()->route('admin.posts.index')->with('message', $post->title . ' è stato eliminato');
     }

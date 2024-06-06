@@ -23,7 +23,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tags.create');
     }
 
     /**
@@ -31,7 +31,13 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+        $form_data = $request->all();
+        $form_data['slug'] = Tag::generateSlug($form_data['name']);
+        $newTag = Tag::create($form_data);
+        return redirect()->route('admin.tags.show', $newTag->slug);
     }
 
     /**
@@ -39,7 +45,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('admin.tags.show', compact('tag'));
     }
 
     /**
@@ -47,7 +53,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -55,7 +61,15 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+        $form_data = $request->all();
+        if ($tag->name !== $form_data['name']) {
+            $form_data['slug'] = Tag::generateSlug($form_data['name']);
+        }
+        $tag->update($form_data);
+        return redirect()->route('admin.tags.show', $tag->slug);
     }
 
     /**
@@ -63,6 +77,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('admin.tags.index')->with('message', $tag->name . ' è stato eliminato');
     }
 }
