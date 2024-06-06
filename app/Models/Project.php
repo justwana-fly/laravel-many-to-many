@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Technology extends Model
+class Project extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name'];
 
-    public function projects()
+    public function technologies()
     {
-        return $this->belongsToMany(Project::class, 'project_technology');
+        return $this->belongsToMany(Technology::class, 'project_technology');
     }
 }
