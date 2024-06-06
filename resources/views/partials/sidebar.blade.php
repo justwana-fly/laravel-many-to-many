@@ -15,5 +15,8 @@
           <li class="nav-item">
             <a class="nav-link  text-white {{Route::currentRouteName() == 'admin.tags.index' ? 'active' : ''}}" href="{{route('admin.tags.index')}}"> <i class="fa-solid fa-tag fa-lg fa-fw"></i>Tag</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link  text-white {{Route::currentRouteName() == 'admin.projects.index' ? 'active' : ''}}" href="{{route('admin.projects.index')}}"><i class="fas fa-cogs"></i>Projects</a>
+          </li>
       </ul>
     </nav>

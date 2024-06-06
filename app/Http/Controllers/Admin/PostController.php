@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Project;
 
 use App\Models\Category;
 use Illuminate\Http\Request;

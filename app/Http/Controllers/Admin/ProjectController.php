@@ -1,10 +1,17 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\Tag;
 use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -13,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('technologies')->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -22,7 +29,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $technologies = Technology::all(); // Ottieni tutte le tecnologie
+        return view('admin.projects.create', compact('technologies'));
     }
 
     /**
@@ -33,10 +41,16 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required|max:255',
         ]);
+
         $form_data = $request->all();
         $form_data['slug'] = Project::generateSlug($form_data['name']);
         $newProject = Project::create($form_data);
-        return redirect()->route('admin.projects.show', $newProject->slug);
+
+        if ($request->has('technologies')) {
+            $newProject->technologies()->sync($request->input('technologies'));
+        }
+
+        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
     }
 
     /**
@@ -52,7 +66,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $technologies = Technology::all(); // Ottieni tutte le tecnologie
+        return view('admin.projects.edit', compact('project', 'technologies'));
     }
 
     /**
@@ -60,12 +75,18 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $request ->validate([
+        $request->validate([
             'name' => 'required|max:255',
         ]);
+
         $form_data = $request->all();
         $form_data['slug'] = Project::generateSlug($form_data['name']);
         $project->update($form_data);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->input('technologies'));
+        }
+
         return redirect()->route('admin.projects.show', $project->slug);
     }
 

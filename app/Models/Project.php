@@ -21,4 +21,16 @@ class Project extends Model
     {
         return Str::slug($name);
     }
+    public function saveWithTechnologies($data)
+{
+    // Salva il progetto
+    $project = static::create($data);
+
+    // Salva le tecnologie associate al progetto
+    if (isset($data['technologies'])) {
+        $project->technologies()->sync($data['technologies']);
+    }
+
+    return $project;
+}
 }
