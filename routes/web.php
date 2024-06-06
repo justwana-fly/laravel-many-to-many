@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('posts', PostController::class)->parameters(['posts' => 'post:slug']);
     Route::resource('categories', CategoryController::class)->parameters(['categories' => 'category:slug']);
+    Route::resource('tags', TagController::class)->parameters(['tags' => 'tag:slug']);
 });
 
 Route::middleware('auth')->group(function () {
