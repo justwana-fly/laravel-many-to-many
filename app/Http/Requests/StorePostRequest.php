@@ -23,7 +23,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:posts|max:200|min:3',
-            'image' => 'nullable|image|max:255',
+            'image' => 'nullable|image|max:1024',
             'content' => 'nullable',
             'user_id' => 'nullable|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
@@ -39,7 +39,7 @@ class StorePostRequest extends FormRequest
             'title.unique:posts' => 'Questo titolo esiste già!',
             'title.max' => 'Il titolo deve essere lungo massimo :max caratteri!',
             'title.min' => 'Il titolo deve essere lungo almeno :min caratteri!',
-            'image.max' => 'La URL deve essere lungo massimo :max caratteri!'
+            'image.max' => 'Il peso dell\'immagine non può essere superiore a 1MB!'
         ];
     }
 }

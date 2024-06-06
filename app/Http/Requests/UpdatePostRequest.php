@@ -29,7 +29,7 @@ class UpdatePostRequest extends FormRequest
                 'min:3',
                 Rule::unique('posts')->ignore($this->post->id),
             ],
-            'image' => 'nullable|max:255',
+            'image' => 'nullable|max:1024',
             'content' => 'nullable',
             'user_id' => 'nullable|exists:userd,id',
             'category_id' => 'nullable|exists:categories,id',
@@ -44,7 +44,7 @@ class UpdatePostRequest extends FormRequest
             'title.unique:posts' => 'Questo titolo esiste già!',
             'title.max' => 'Il titolo deve essere lungo massimo :max caratteri!',
             'title.min' => 'Il titolo deve essere lungo almeno :min caratteri!',
-            'image.max' => 'La URL deve essere lungo massimo :max caratteri!'
+            'image.max' => 'Il peso dell\'immagine non può essere superiore a 1MB!'
         ];
     }
 }
