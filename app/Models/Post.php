@@ -17,11 +17,10 @@ class Post extends Model
 
     public static function generateSlug($title)
     {
-        $slug = Str::slug($title, '-');
+        $originalSlug = $slug = Str::slug($title, '-');
         $count = 1;
-        while (Post::where('slug', $slug)->first()) {
-            $slug = Str::of($title)->slug('-') . "-{$count}";
-            $count++;
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
         }
         return $slug;
     }

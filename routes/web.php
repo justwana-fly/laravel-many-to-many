@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,5 @@ require __DIR__ . '/auth.php';
 Route::fallback(function () {
     return redirect()->route('admin.dashboard');
 });
+
+Route::resource('admin/projects', ProjectController::class);
